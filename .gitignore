@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------
+# PRIVACY: Real Facebook exports - NEVER commit these
+# ---------------------------------------------------------
+
+# Raw Facebook export archives and folders
+facebook-*/
+facebook-*.zip
+
+# Extracted export directories
+*/messages/
+*/your_facebook_activity/
+*/connections/
+*/comments_and_reactions/
+*/logged_information/
+*/interactions/
+*/personal_information/
+
+# ---------------------------------------------------------
+# PRIVACY: Scorer output with real data
+# ---------------------------------------------------------
+scored_output/
+fb_friend_score.csv
+current_friends_*.csv
+non_friend_contacts.csv
+keep.csv
+review.csv
+stale_connections.csv
+unknown_no_signal.csv
+
+# Analysis scripts that reference real data
+analyze_contacts.py
+analysis_output.txt
+
+# tmp test output
+tmp_test_output/
+.gemini/
+
+# Allow fake examples
+!examples/sample_export/
+!examples/sample_output/
+!examples/sample_export/**
+!examples/sample_output/**

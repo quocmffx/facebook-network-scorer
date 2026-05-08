@@ -1,0 +1,2 @@
+﻿facebook_name,is_current_friend,interaction_score,message_score,reaction_score,comment_score,recency_score,context_score,last_interaction_at,classification,confidence,source_channels,signal_count
+Alice Nguyen,True,0.02,0.05,0.0,0.0,1.08,50.61,2023-11-14,review,0.23,message,1
