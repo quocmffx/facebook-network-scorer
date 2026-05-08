@@ -1,13 +1,24 @@
 [project]
 name = "facebook-network-scorer"
-version = "1.0.0"
-description = "A tool to analyze Facebook exports and score the activity level of connections."
+version = "1.1.0"
+description = "Quietly analyze Facebook exports to score the activity level of connections. Local-first, privacy-safe."
 readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "quocmffx"}]
+keywords = ["facebook", "network", "analysis", "privacy", "local-first"]
 requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.0",
     "rapidfuzz>=3.0"
 ]
+
+[project.urls]
+Homepage = "https://github.com/quocmffx/facebook-network-scorer"
+Repository = "https://github.com/quocmffx/facebook-network-scorer.git"
+Issues = "https://github.com/quocmffx/facebook-network-scorer/issues"
+
+[project.scripts]
+fb-network-scorer = "fb_network_scorer.cli:main"
 
 [project.optional-dependencies]
 dev = [
@@ -20,3 +31,6 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["fb_network_scorer"]

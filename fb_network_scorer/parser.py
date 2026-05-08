@@ -59,48 +59,19 @@ def find_json_files(directory: Path, pattern: str = "*.json") -> list[Path]:
 
 # ---- Data structures ----
 
-from dataclasses import dataclass, field
-
-
-@dataclass
-class FriendRecord:
-    """A Facebook friend with their add timestamp."""
-    name: str
-    added_timestamp: int  # Unix epoch
-
-
-@dataclass
-class MessageThread:
-    """A parsed message thread between participants."""
-    participants: list[str]
-    messages: list[dict[str, Any]]
-    thread_path: str = ""
-
-
-@dataclass
-class CommentRecord:
-    """A parsed comment interaction."""
-    timestamp: int
-    author: str
-    comment_text: str
-    mentioned_name: str  # Name extracted from title "... phản hồi bình luận của X"
-    title: str
-
-
-@dataclass
-class ReactionRecord:
-    """A parsed reaction interaction."""
-    timestamp: int
-    reaction_type: str
-    target_name: str  # Who the reaction was on (author/page)
-    target_url: str
-
+from .models import CommentRecord, FriendRecord, MessageThread, ReactionRecord
 
 # ---- Parsers ----
 
 
 def parse_friends(export_root: Path) -> list[FriendRecord]:
-    """Parse friends list from connections/friends/your_friends.json"""
+    """
+    Parse the user's friend list to establish the baseline network.
+
+    Input: Path to the Facebook export root directory.
+    Output: List of FriendRecord objects.
+    Failure mode: Returns an empty list if the friends JSON file is missing or invalid.
+    """
     path = export_root / "connections" / "friends" / "your_friends.json"
     data = safe_load_json(path)
     if not data:
@@ -121,8 +92,11 @@ def parse_friends(export_root: Path) -> list[FriendRecord]:
 
 def parse_messages(export_root: Path) -> Generator[MessageThread, None, None]:
     """
-    Parse all message threads from inbox directory.
-    Yields one MessageThread at a time for memory efficiency.
+    Parse all direct message threads to measure bidirectional interaction.
+
+    Input: Path to the Facebook export root directory.
+    Output: Generator yielding MessageThread objects one by one (memory efficient).
+    Failure mode: Yields nothing if the messages directory is missing. Skips unreadable files.
     """
     inbox_dir = export_root / "your_facebook_activity" / "messages" / "inbox"
     if not inbox_dir.exists():
@@ -230,7 +204,13 @@ def _extract_mentioned_name_from_comment(comment_text: str) -> str:
 
 
 def parse_comments(export_root: Path) -> list[CommentRecord]:
-    """Parse comments from comments_and_reactions/comments.json"""
+    """
+    Parse comments on posts to measure public interaction signals.
+
+    Input: Path to the Facebook export root directory.
+    Output: List of CommentRecord objects.
+    Failure mode: Returns an empty list if the comments file is missing or unreadable.
+    """
     comments_dir = export_root / "your_facebook_activity" / "comments_and_reactions"
     path = comments_dir / "comments.json"
     data = safe_load_json(path)
@@ -271,10 +251,11 @@ def parse_comments(export_root: Path) -> list[CommentRecord]:
 
 def parse_reactions(export_root: Path) -> list[ReactionRecord]:
     """
-    Parse reactions from comments_and_reactions/likes_and_reactions*.json
+    Parse reactions (likes, loves, etc.) to capture low-friction engagement.
 
-    Schema: array of objects with label_values containing
-    reaction type, URL, and target name/author.
+    Input: Path to the Facebook export root directory.
+    Output: List of ReactionRecord objects.
+    Failure mode: Returns an empty list if no reaction files are found or if they are malformed.
     """
     reactions_dir = export_root / "your_facebook_activity" / "comments_and_reactions"
     records: list[ReactionRecord] = []
@@ -347,8 +328,11 @@ def parse_reactions(export_root: Path) -> list[ReactionRecord]:
 
 def detect_owner_name(export_root: Path) -> str:
     """
-    Auto-detect the account owner's name from the export.
-    Uses profile_information or the first comment author.
+    Attempt to auto-detect the profile owner's name to filter self-interactions.
+
+    Input: Path to the Facebook export root directory.
+    Output: The detected name as a string, or an empty string if detection fails.
+    Failure mode: Returns an empty string if profile information cannot be parsed.
     """
     # Try profile info first
     profile_path = export_root / "personal_information" / "profile_information" / "profile_information.json"
