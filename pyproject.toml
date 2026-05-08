@@ -1,6 +1,6 @@
 [project]
 name = "facebook-network-scorer"
-version = "1.1.0"
+version = "1.1.2"
 description = "Quietly analyze Facebook exports to score the activity level of connections. Local-first, privacy-safe."
 readme = "README.md"
 license = {text = "MIT"}
