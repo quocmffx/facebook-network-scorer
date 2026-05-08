@@ -18,12 +18,20 @@ Phân tích dữ liệu JSON trích xuất từ **"Tải thông tin của bạn 
 
 ```bash
 pip install -r requirements.txt
-fb-network-scorer /path/to/facebook-export --output ./scored_output
+python -m fb_network_scorer /path/to/facebook-export --output ./scored_output
 ```
 
 Hoặc kiểm tra tính hợp lệ của dữ liệu trích xuất:
 
 ```bash
+python -m fb_network_scorer doctor /path/to/facebook-export
+```
+
+### Tùy chọn: Cài đặt toàn cục (Global installation)
+
+```bash
+pip install -e .
+fb-network-scorer /path/to/facebook-export --output ./scored_output
 fb-network-scorer doctor /path/to/facebook-export
 ```
 

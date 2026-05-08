@@ -18,12 +18,20 @@ Analyzes a Facebook / Meta **"Download Your Information"** JSON export and produ
 
 ```bash
 pip install -r requirements.txt
-fb-network-scorer /path/to/facebook-export --output ./scored_output
+python -m fb_network_scorer /path/to/facebook-export --output ./scored_output
 ```
 
 Or check the integrity of your export data:
 
 ```bash
+python -m fb_network_scorer doctor /path/to/facebook-export
+```
+
+### Optional: Global installation
+
+```bash
+pip install -e .
+fb-network-scorer /path/to/facebook-export --output ./scored_output
 fb-network-scorer doctor /path/to/facebook-export
 ```
 

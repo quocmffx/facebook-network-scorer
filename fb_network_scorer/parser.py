@@ -187,14 +187,10 @@ def _extract_name_from_title(title: str) -> str:
 
 def _extract_mentioned_name_from_comment(comment_text: str) -> str:
     """
-    Extract tagged name from comment text.
+    Placeholder for future tagged-name extraction from comment text.
 
-    Facebook comments often start with a tagged name like:
-    "Hoàng Chất thằng loz, t báo CA bắt m"
-    The tagged name is the first part before the actual comment.
-
-    This is a heuristic - we extract the first word(s) that look like
-    a Vietnamese name (capitalized words at the start).
+    This is intentionally disabled because comment mentions are unreliable
+    across Facebook export schemas.
     """
     if not comment_text:
         return ""
