@@ -112,3 +112,7 @@ def export_all(scores: list[FriendScore], output_dir: Path) -> None:
     print(f"  Non-friend contacts: {len(non_friends)}")
     print(f"  TOTAL scored:        {len(scores)}")
     print(f"\nOutput directory: {output_dir.resolve()}")
+
+    from .dashboard import export_public_safe_dashboard
+    dashboard_path = export_public_safe_dashboard(scores, output_dir)
+    print(f"Public-safe dashboard: {dashboard_path.resolve()}")

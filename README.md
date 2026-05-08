@@ -57,6 +57,7 @@ See **[docs/export-facebook-data.md](docs/export-facebook-data.md)** for the ful
 | `current_friends_stale.csv` | Dormant / drifted connections |
 | `unknown_no_signal.csv` | Insufficient data to classify |
 | `non_friend_contacts.csv` | Pages, groups, non-friend contacts |
+| `dashboard_public_safe.html` | Anonymous dashboard for sharing or screenshotting. Names are replaced with Node IDs. |
 
 ## Project structure
 

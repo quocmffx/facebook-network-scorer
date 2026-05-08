@@ -57,6 +57,7 @@ Xem **[docs/vi/export-facebook-data.md](docs/vi/export-facebook-data.md)** để
 | `current_friends_stale.csv` | Đã nguội: Từng tương tác nhưng đã lâu không trò chuyện |
 | `unknown_no_signal.csv` | Không đủ dữ liệu để phân loại |
 | `non_friend_contacts.csv` | Trang, nhóm, hoặc những người không kết bạn |
+| `dashboard_public_safe.html` | Dashboard ẩn danh để chụp ảnh hoặc chia sẻ. Tên thật được thay bằng Node ID. |
 
 ## Cấu trúc dự án
 
