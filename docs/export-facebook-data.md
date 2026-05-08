@@ -129,7 +129,7 @@ python -m fb_network_scorer /path/to/facebook-export --output ./scored_output
 ### Windows
 
 ```powershell
-python -m fb_network_scorer "C:\Users\You\Downloads\facebook-yourname" --output ".\scored_output"
+python -m fb_network_scorer "C:\path\to\facebook-export" --output ".\scored_output"
 ```
 
 ### macOS / Linux
