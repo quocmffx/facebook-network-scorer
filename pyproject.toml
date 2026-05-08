@@ -3,7 +3,7 @@ name = "facebook-network-scorer"
 version = "1.0.0"
 description = "A tool to analyze Facebook exports and score the activity level of connections."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.0",
     "rapidfuzz>=3.0"
