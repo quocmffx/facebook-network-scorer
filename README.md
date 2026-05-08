@@ -1,6 +1,10 @@
 # facebook-network-scorer
 
+[English](README.md) | [Tiếng Việt](README.vi.md)
+
 Score your Facebook social graph based on real interaction signals.
+
+Quiet tools for noisy systems. Local-first and privacy-safe.
 
 Analyzes a Facebook / Meta **"Download Your Information"** JSON export and produces per-friend scores using:
 
@@ -17,6 +21,22 @@ pip install -r requirements.txt
 python -m fb_network_scorer /path/to/facebook-export --output ./scored_output
 ```
 
+Or check the integrity of your export data:
+
+```bash
+python -m fb_network_scorer doctor /path/to/facebook-export
+```
+
+### Optional: Global installation
+
+```bash
+pip install -e .
+fb-network-scorer /path/to/facebook-export --output ./scored_output
+fb-network-scorer doctor /path/to/facebook-export
+```
+
+*(Note: The `doctor` command only verifies directory paths and metadata. It does not scan the contents of your private messages).*
+
 ## Export Facebook Data
 
 Before running the scorer you need a Facebook JSON export.
@@ -25,7 +45,7 @@ See **[docs/export-facebook-data.md](docs/export-facebook-data.md)** for the ful
 
 - Which categories to select (Friends, Messages, Comments, Reactions, ...)
 - Format settings (JSON, Low quality, date range)
-- Privacy rules and what to never commit
+- Privacy boundaries and what to never commit
 
 ## Output
 
@@ -35,6 +55,7 @@ See **[docs/export-facebook-data.md](docs/export-facebook-data.md)** for the ful
 | `current_friends_keep.csv` | Active, multi-channel connections |
 | `current_friends_review.csv` | Weak or ambiguous connections |
 | `current_friends_stale.csv` | Dormant / drifted connections |
+| `unknown_no_signal.csv` | Insufficient data to classify |
 | `non_friend_contacts.csv` | Pages, groups, non-friend contacts |
 
 ## Project structure
@@ -42,25 +63,29 @@ See **[docs/export-facebook-data.md](docs/export-facebook-data.md)** for the ful
 ```
 fb_network_scorer/
   __init__.py       # Package metadata
-  __main__.py       # CLI entry point
+  __main__.py       # CLI entry point wrapper
+  cli.py            # CLI argument parsing
   config.py         # All tunable scoring parameters
+  models.py         # Data structures
   parser.py         # Facebook JSON parser (handles mojibake)
   scorer.py         # Scoring engine with time decay + context drift
   exporter.py       # CSV export with classification splits
 
 examples/
   sample_export/    # Fake data for testing
-  sample_output/    # Example scored output
 
 docs/
   export-facebook-data.md   # Facebook export guide
+  vi/                       # Vietnamese documentation
 ```
 
-## Privacy
+## Privacy Boundaries
 
-> **Warning:** Never commit real Facebook export data, real CSV outputs, or real names to this repository.
+> **Warning:** Privacy boundaries are absolute. Never commit real Facebook export data, real CSV outputs, or real names to this repository.
 
-The `.gitignore` is configured to exclude Facebook exports and scorer output by default. See the [export guide](docs/export-facebook-data.md#privacy-checklist) for details.
+Your personal data remains strictly on your local machine. There is no cloud service, no upload flow, and data never leaves your device. The `.gitignore` is configured to exclude Facebook exports and scorer output by default.
+
+Read more in [docs/privacy.md](docs/privacy.md).
 
 ## License
 

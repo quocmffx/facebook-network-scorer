@@ -23,7 +23,7 @@ import csv
 import logging
 from pathlib import Path
 
-from .scorer import FriendScore
+from .models import FriendScore
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +70,13 @@ def _write_csv(path: Path, rows: list[FriendScore]) -> None:
 
 
 def export_all(scores: list[FriendScore], output_dir: Path) -> None:
-    """Export all CSV files with friend/non-friend separation."""
+    """
+    Export all scored relationships into separated CSV files.
+
+    Input: List of FriendScore objects and output directory path.
+    Output: None. Writes multiple CSV files to the output directory.
+    Failure mode: Fails if the output directory is not writable.
+    """
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # --- Full graph (all contacts) ---
